@@ -18,7 +18,7 @@ googleTransliterate(sourceText, inputLanguage, maxResult)
     console.log('Transliterated Text: ', response);
 });
 
-Output
+Output:
 Transliterated Text: हामी
 ```
 
