@@ -1,0 +1,27 @@
+{
+  "name": "google-input-tool",
+  "version": "1.0.0",
+  "description": "Transliterate language based on code provided from input tool api",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sambhuWeb/google-input-tool.git"
+  },
+  "keywords": [
+    "Transliterate",
+    "Google",
+    "Input",
+    "Tool",
+    "Free",
+    "api"
+  ],
+  "author": "Sambhu Raj Singh",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sambhuWeb/google-input-tool/issues"
+  },
+  "homepage": "https://github.com/sambhuWeb/google-input-tool#readme"
+}
