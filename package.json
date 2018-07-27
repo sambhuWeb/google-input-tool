@@ -4,7 +4,7 @@
   "description": "Transliterate language based on code provided from input tool api",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --reporter spec"
   },
   "repository": {
     "type": "git",
@@ -23,5 +23,11 @@
   "bugs": {
     "url": "https://github.com/sambhuWeb/google-input-tool/issues"
   },
-  "homepage": "https://github.com/sambhuWeb/google-input-tool#readme"
+  "homepage": "https://github.com/sambhuWeb/google-input-tool#readme",
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^4.0.1",
+    "sinon": "^6.1.4",
+    "xmlhttprequest": "^1.8.0"
+  }
 }
