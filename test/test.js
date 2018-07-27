@@ -5,35 +5,37 @@ var googleTransliterate = require('../index');
 var sinon = require('sinon');
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
+
 describe('#googleTransliterate', function() {
-    it('assertion success', async () => {
+    let request;
+
+    beforeEach(function() {
+        request = new XMLHttpRequest();
+        
+    });    
+
+    it('Given "hami" is entered, it should return transliterate result as an array.', async () => {
+        //Given
         let sourceText = 'hami';
         let inputLanguage = 'ne-t-i0-und';
-        let maxResult = 1;
+        let maxResult = 5;
 
-        // const result = await googleTransliterate();
-        // console.log(result);
-        // expect(result).to.equal(2);
+        //Expected
+        let expectedTransliteration = [ 'हामी', 'हमी', 'हामि', 'हमि', 'ह्मी'];
 
-        return googleTransliterate(sourceText, inputLanguage, maxResult).then((data) => {
-            console.log(data);
-            expect(data).to.equal([ 'हामी' ]);
-        });
-        //
-        // const result = await googleTransliterate(sourceText, inputLanguage, maxResult);
-        // console.log(result);
-        // expect(result).to.equal('promise resolved');
-    });
-    // it('should transliterate hami to हामी', function() {
-    //     let sourceText = 'hami';
-    //     let inputLanguage = 'ne-t-i0-und';
-    //     let maxResult = 8;
-    //
-    //     googleTransliterate(sourceText, inputLanguage, maxResult)
-    //     .then(function(response) {
-    //         console.log('Transliterated Text: ', response);
-    //     });
-    // });
+        /**
+         * Method 1
+         */
+        const result = await googleTransliterate(request, sourceText, inputLanguage, maxResult);        
+        expect(result).to.deep.equal(expectedTransliteration);
+
+        /**
+         * Method 2
+         */
+        // return googleTransliterate(request, sourceText, inputLanguage, maxResult).then((data) => {            
+        //     expect(data).to.deep.equal(expectedTransliteration);
+        // });
+    });    
 });
 
 
