@@ -11,7 +11,6 @@ describe('Transliterate Test', function() {
 
     beforeEach(function() {
         request = new XMLHttpRequest();
-        
     });
 
     it('Amharic: Given "amharic" is entered, it should return array of transliterated amharic script.', async () => {
