@@ -13,7 +13,6 @@ module.exports = function(request, sourceText, inputLanguageCode, maxResult) {
         let encodedUrl = encodeURI('https://inputtools.google.com/request?text=' + sourceText + '&itc=' + inputLanguageCode + '&num=' + maxResult + '&cp=0&cs=1&ie=utf-8&oe=utf-8&app=demopage');
 
         // Do the usual XHR stuff
-        
         request.open('GET', encodedUrl);
 
         request.onreadystatechange = function () {

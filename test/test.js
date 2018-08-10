@@ -387,6 +387,25 @@ describe('Transliterate Test', function() {
         expect(result).to.deep.equal(expectedTransliteration);
     });
 
+    it('Thai: Given "thailand" is entered, it should return array of transliterated telugu script.', async () => {
+        //Given
+        let sourceText = 'thailand';
+        let inputLanguage = 'th-t-i0-und';
+        let maxResult = 5;
+
+        //Expected
+        let expectedTransliteration = [
+            "ไทยแลนด์",
+            "ไทย",
+            "ถ่าย",
+            "ท้าย",
+            "ไท",
+        ];
+
+        const result = await googleTransliterate(request, sourceText, inputLanguage, maxResult);
+        expect(result).to.deep.equal(expectedTransliteration);
+    });
+
     it('Tigrinya: Given "eritrea" is entered, it should return array of transliterated tigrinya script.', async () => {
         //Given
         let sourceText = 'eritrea';
