@@ -1,10 +1,60 @@
 # google-input-tool
 Small Free library tool to transliterate words for a provided language code.
 
-## Installation
+### Publishing NPM Package
+
+  1. Create & PUsh Git Tag:
+  
+        git tag v1.1.2
+        git push origin --tags
+  
+  2. Login to Npm
+  
+         npm login
+         userename: r******
+         password: ***
+         email: sam***.***.*****@****.com
+   
+     To Verify if Logged in:
+     
+         npm whoami 
+    
+  3. Modify the tag version on package.json as below:
+  
+         {
+           "name": "google-input-tool",
+           "version": "1.1.1",
+           ...
+         }
+         
+  4. Publish the package in npm js
+  
+         npm publish 
+         
+        Will Give Following output:
+        
+         npm notice 
+         npm notice 📦  google-input-tool@1.1.2
+         npm notice === Tarball Contents === 
+         npm notice 767B   package.json
+         npm notice 2.3kB  index.js    
+         npm notice 1.4kB  README.md   
+         npm notice 16.8kB test/test.js
+         npm notice === Tarball Details === 
+         npm notice name:          google-input-tool                       
+         npm notice version:       1.1.2                                   
+         npm notice package size:  4.1 kB                                  
+         npm notice unpacked size: 21.2 kB                                 
+         npm notice shasum:        57e02d067884918d114d2ea9a1bdb3cbb19ee3db
+         npm notice integrity:     sha512-BrDfNniAQBnB6[...]B1Lo5b05Pn71Q==
+         npm notice total files:   4                                       
+         npm notice 
+         + google-input-tool@1.1.2
+
+## Installation of this package
 ```npm install google-input-tool```
 
-## Usuage
+## Usage of this package
 
 ```
 let googleTransliterate = require('google-input-tool');
