@@ -25,15 +25,19 @@ module.exports = function(request, sourceText, inputLanguageCode, maxResult) {
              * The first time onreadystatechange gets called, the status would be 1, not 4 ... so you reject
              * you should only reject if readyState is 4 (DONE) AND status != 200
              */
-            if (request.readyState == request.DONE) {
-                if (request.status == 200) {
+            if (request.readyState === request.DONE) {
+                if (request.status === 200) {
                     /**
                      * request.response returning following error on test:
                      *      Uncaught TypeError: Cannot read property 'responseText' of undefined
                      *
                      * Therefore, using this.responseTest
                      */
-                    let json = JSON.parse(this.responseText);                    
+                    let json = JSON.parse(this.responseText);
+
+                    if (typeof json[1] === 'undefined') {
+                        return;
+                    }
 
                     // Resolve the promise with the response text
                     resolve(json[1][0][1]);
@@ -53,4 +57,4 @@ module.exports = function(request, sourceText, inputLanguageCode, maxResult) {
 
         request.send();
     });
-}
+};
