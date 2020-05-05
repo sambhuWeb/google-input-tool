@@ -1,6 +1,6 @@
 {
   "name": "google-input-tool",
-  "version": "1.2.2",
+  "version": "1.3.2",
   "description": "Transliterate language based on code provided from input tool api",
   "main": "index.js",
   "scripts": {
