@@ -221,6 +221,45 @@ describe('Transliterate Test', function() {
         expect(result).to.deep.equal(expectedTransliteration);
     });
 
+    it('Nepali: Given "hami" with one carriage return is entered, it should return array of transliterated nepali script with carriage return.', async () => {
+        //Given
+        let sourceText = '\nhami';
+        let inputLanguage = 'ne-t-i0-und';
+        let maxResult = 5;
+
+        //Expected
+        let expectedTransliteration = ['\nहामी', '\nहमी', '\nहामि', '\nहमि', '\nह्मी'];
+
+        const result = await googleTransliterate(request, sourceText, inputLanguage, maxResult);
+        expect(result).to.deep.equal(expectedTransliteration);
+    });
+
+    it('Nepali: Given "hami" with two carriage return is entered, it should return array of transliterated nepali script with two carriage.', async () => {
+        //Given
+        let sourceText = '\n\rhami';
+        let inputLanguage = 'ne-t-i0-und';
+        let maxResult = 5;
+
+        //Expected
+        let expectedTransliteration = ['\n\rहामी', '\n\rहमी', '\n\rहामि', '\n\rहमि', '\n\rह्मी'];
+
+        const result = await googleTransliterate(request, sourceText, inputLanguage, maxResult);
+        expect(result).to.deep.equal(expectedTransliteration);
+    });
+
+    it('Nepali: Given "hami" with multiple carriage return is entered, it should return array of transliterated nepali script with carriage return.', async () => {
+        //Given
+        let sourceText = '\n\r\n\n\r\rhami';
+        let inputLanguage = 'ne-t-i0-und';
+        let maxResult = 5;
+
+        //Expected
+        let expectedTransliteration = ['\n\r\n\n\r\rहामी', '\n\r\n\n\r\rहमी', '\n\r\n\n\r\rहामि', '\n\r\n\n\r\rहमि', '\n\r\n\n\r\rह्मी'];
+
+        const result = await googleTransliterate(request, sourceText, inputLanguage, maxResult);
+        expect(result).to.deep.equal(expectedTransliteration);
+    });
+
     it('Oriya: Given "india" is entered, it should return array of transliterated Oriya script.', async () => {
         //Given
         let sourceText = 'india';

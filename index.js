@@ -10,6 +10,16 @@
  */
 module.exports = function(request, sourceText, inputLanguageCode, maxResult) {
     return new Promise(function(resolve, reject) {
+        let hasCarriageReturn = false;
+        let strippedReturnCarriages = null;
+
+        if(/^[\r|\n]/.exec(sourceText)) {
+            hasCarriageReturn = true;
+            strippedReturnCarriages = sourceText.match(/^[\r\n]+/)[0];
+
+            sourceText = sourceText.replace( /^[\r\n]+/, "" );
+        }
+
         let encodedUrl = encodeURI('https://inputtools.google.com/request?text=' + sourceText + '&itc=' + inputLanguageCode + '&num=' + maxResult + '&cp=0&cs=1&ie=utf-8&oe=utf-8&app=demopage');
 
         // Do the usual XHR stuff
@@ -17,7 +27,7 @@ module.exports = function(request, sourceText, inputLanguageCode, maxResult) {
 
         request.onreadystatechange = function () {
 
-            // Notice state will be 1, 2, 3, 4 (done) on enabling follwowing console.
+            // Notice state will be 1, 2, 3, 4 (done) on enabling following console.
             // console.log('request readyState', request.readyState);
 
             /**
@@ -33,14 +43,22 @@ module.exports = function(request, sourceText, inputLanguageCode, maxResult) {
                      *
                      * Therefore, using this.responseTest
                      */
-                    let json = JSON.parse(this.responseText);
+                    const responseJson = JSON.parse(this.responseText);
 
-                    if (typeof json[1] === 'undefined') {
+                    if (typeof responseJson[1] === 'undefined' || typeof responseJson[1][0] === 'undefined') {
                         return;
                     }
 
-                    // Resolve the promise with the response text
-                    resolve(json[1][0][1]);
+                    const responseList = responseJson[1][0][1];
+
+                    if (hasCarriageReturn && strippedReturnCarriages !== null) {
+                        /**
+                         * return the response after putting back the stripped return carriages
+                         */
+                        resolve(responseList.map(response => strippedReturnCarriages + response));
+                    } else {
+                        resolve(responseList);
+                    }
                 } else {
 
                     /**
