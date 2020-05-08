@@ -49,14 +49,15 @@ module.exports = function(request, sourceText, inputLanguageCode, maxResult) {
 
                     const responseList = responseJson[1][0][1];
 
-                    // if (hasSpecialCharacterInBeginning && specialCharactersInBeginning !== null) {
-                        /**
-                         * return the response after putting back the first and last part of the text
-                         */
-                        resolve(responseList.map(response => firstPartBeforeText + response + lastPartAfterText));
-                    // } else {
-                    //     resolve(responseList);
-                    // }
+                    /**
+                     * return the response after putting back the first and last part of the text
+                     */
+                    resolve(responseList.map(response => {
+                        return [
+                            firstPartBeforeText + response + lastPartAfterText,
+                            response
+                        ]
+                    }));
                 } else {
 
                     /**

@@ -26,7 +26,23 @@ describe('Transliterate Test', function() {
          * Method 1
          */
         const result = await googleTransliterate(request, sourceText, inputLanguage, maxResult);
-        expect(result).to.deep.equal(expectedTransliteration);
+
+        /**
+         * Change:
+         * result
+         * [
+         *     [ 'አምሃርች', 'አምሃርች' ],
+         *     [ 'አምሀርች', 'አምሀርች' ],
+         *     [ 'አምሐርች', 'አምሐርች' ],
+         *     [ 'አምኃርች', 'አምኃርች' ],
+         *     [ 'አምህአርች', 'አምህአርች' ]
+         *  ]
+         *
+         *
+         * To: result [ 'አምሃርች', 'አምሀርች', 'አምሐርች', 'አምኃርች', 'አምህአርች' ]
+         */
+        const mapFirstKeyToNewArray = result.map(r => r[0]);
+        expect(mapFirstKeyToNewArray).to.deep.equal(expectedTransliteration);
 
         /**
          * Method 2
@@ -46,7 +62,9 @@ describe('Transliterate Test', function() {
         let expectedTransliteration = ["أرابيك", "أربيك", "أربك", "ارابيك", "ربك"];
 
         const result = await googleTransliterate(request, sourceText, inputLanguage, maxResult);
-        expect(result).to.deep.equal(expectedTransliteration);
+
+        const mapFirstKeyToNewArray = result.map(r => r[0]);
+        expect(mapFirstKeyToNewArray).to.deep.equal(expectedTransliteration);
     });
 
     it('Bengali: Given "bangla" is entered, it should return array of transliterated bengali script.', async () => {
@@ -59,7 +77,9 @@ describe('Transliterate Test', function() {
         let expectedTransliteration = ['বাংলা', 'বাঙলা', 'বাঙ্লা', 'বাংলাঃ', 'বংলা'];
 
         const result = await googleTransliterate(request, sourceText, inputLanguage, maxResult);
-        expect(result).to.deep.equal(expectedTransliteration);
+
+        const mapFirstKeyToNewArray = result.map(r => r[0]);
+        expect(mapFirstKeyToNewArray).to.deep.equal(expectedTransliteration);
     });
 
     it('Chinese (Hong Kong): Given "hongkong" is entered, it should return array of transliterated chinese (hongkong) script.', async () => {
@@ -78,7 +98,9 @@ describe('Transliterate Test', function() {
         ];
 
         const result = await googleTransliterate(request, sourceText, inputLanguage, maxResult);
-        expect(result).to.deep.equal(expectedTransliteration);
+
+        const mapFirstKeyToNewArray = result.map(r => r[0]);
+        expect(mapFirstKeyToNewArray).to.deep.equal(expectedTransliteration);
     });
 
     it('Chinese (Simplified, China): Given "china" is entered, it should return array of transliterated chinese simplified script.', async () => {
@@ -97,7 +119,9 @@ describe('Transliterate Test', function() {
         ];
 
         const result = await googleTransliterate(request, sourceText, inputLanguage, maxResult);
-        expect(result).to.deep.equal(expectedTransliteration);
+
+        const mapFirstKeyToNewArray = result.map(r => r[0]);
+        expect(mapFirstKeyToNewArray).to.deep.equal(expectedTransliteration);
     });
 
     // it('Chinese (Traditional, Taiwan): Given "taiwan" is entered, it should return array of transliterated chinese traditional script.', async () => {
@@ -125,7 +149,9 @@ describe('Transliterate Test', function() {
         ];
 
         const result = await googleTransliterate(request, sourceText, inputLanguage, maxResult);
-        expect(result).to.deep.equal(expectedTransliteration);
+
+        const mapFirstKeyToNewArray = result.map(r => r[0]);
+        expect(mapFirstKeyToNewArray).to.deep.equal(expectedTransliteration);
     });
 
     it('Gujarati: Given "gujarat" is entered, it should return array of transliterated gujarati script.', async () => {
@@ -144,7 +170,9 @@ describe('Transliterate Test', function() {
         ];
 
         const result = await googleTransliterate(request, sourceText, inputLanguage, maxResult);
-        expect(result).to.deep.equal(expectedTransliteration);
+
+        const mapFirstKeyToNewArray = result.map(r => r[0]);
+        expect(mapFirstKeyToNewArray).to.deep.equal(expectedTransliteration);
     });
 
     it('Hindi: Given "hindi" is entered, it should return array of transliterated hindi script.', async () => {
@@ -157,7 +185,9 @@ describe('Transliterate Test', function() {
         let expectedTransliteration = ['हिंदी', 'हिन्दी', 'हिन्दि', 'हिँदी', 'हिंदि'];
 
         const result = await googleTransliterate(request, sourceText, inputLanguage, maxResult);
-        expect(result).to.deep.equal(expectedTransliteration);
+
+        const mapFirstKeyToNewArray = result.map(r => r[0]);
+        expect(mapFirstKeyToNewArray).to.deep.equal(expectedTransliteration);
     });
 
     /**
@@ -179,7 +209,9 @@ describe('Transliterate Test', function() {
         ];
 
         const result = await googleTransliterate(request, sourceText, inputLanguage, maxResult);
-        expect(result).to.deep.equal(expectedTransliteration);
+
+        const mapFirstKeyToNewArray = result.map(r => r[0]);
+        expect(mapFirstKeyToNewArray).to.deep.equal(expectedTransliteration);
     });
 
     it('Malayalam: Given "malayalam" is entered, it should return array of transliterated malayalam script.', async () => {
@@ -192,7 +224,9 @@ describe('Transliterate Test', function() {
         let expectedTransliteration = ['മലയാളം', 'മലയാലം', 'മലയാളത്തെ', 'മലയാളവും', 'മാലയാളം'];
 
         const result = await googleTransliterate(request, sourceText, inputLanguage, maxResult);
-        expect(result).to.deep.equal(expectedTransliteration);
+
+        const mapFirstKeyToNewArray = result.map(r => r[0]);
+        expect(mapFirstKeyToNewArray).to.deep.equal(expectedTransliteration);
     });
 
     it('Marathi: Given "marathi" is entered, it should return array of transliterated marathi script.', async () => {
@@ -205,7 +239,9 @@ describe('Transliterate Test', function() {
         let expectedTransliteration = ['मराठी', 'मराठि', 'मरठी', 'मराठीं', 'माराठी'];
 
         const result = await googleTransliterate(request, sourceText, inputLanguage, maxResult);
-        expect(result).to.deep.equal(expectedTransliteration);
+
+        const mapFirstKeyToNewArray = result.map(r => r[0]);
+        expect(mapFirstKeyToNewArray).to.deep.equal(expectedTransliteration);
     });
 
     it('Nepali: Given "hami" is entered, it should return array of transliterated nepali script.', async () => {
@@ -218,7 +254,9 @@ describe('Transliterate Test', function() {
         let expectedTransliteration = ['हामी', 'हमी', 'हामि', 'हमि', 'ह्मी'];
 
         const result = await googleTransliterate(request, sourceText, inputLanguage, maxResult);
-        expect(result).to.deep.equal(expectedTransliteration);
+
+        const mapFirstKeyToNewArray = result.map(r => r[0]);
+        expect(mapFirstKeyToNewArray).to.deep.equal(expectedTransliteration);
     });
 
     it('Nepali: Given "hami" with one special return is entered, it should return array of transliterated nepali script with carriage return.', async () => {
@@ -231,7 +269,9 @@ describe('Transliterate Test', function() {
         let expectedTransliteration = ['\nहामी', '\nहमी', '\nहामि', '\nहमि', '\nह्मी'];
 
         const result = await googleTransliterate(request, sourceText, inputLanguage, maxResult);
-        expect(result).to.deep.equal(expectedTransliteration);
+
+        const mapFirstKeyToNewArray = result.map(r => r[0]);
+        expect(mapFirstKeyToNewArray).to.deep.equal(expectedTransliteration);
     });
 
     it('Nepali: Given "hami" with two special character is entered, it should return array of transliterated nepali script with those carriage.', async () => {
@@ -244,7 +284,9 @@ describe('Transliterate Test', function() {
         let expectedTransliteration = ['\n\rहामी', '\n\rहमी', '\n\rहामि', '\n\rहमि', '\n\rह्मी'];
 
         const result = await googleTransliterate(request, sourceText, inputLanguage, maxResult);
-        expect(result).to.deep.equal(expectedTransliteration);
+
+        const mapFirstKeyToNewArray = result.map(r => r[0]);
+        expect(mapFirstKeyToNewArray).to.deep.equal(expectedTransliteration);
     });
 
     it('Nepali: Given "hami" with multiple special characters is entered, it should return array of transliterated nepali script with those characters.', async () => {
@@ -257,7 +299,9 @@ describe('Transliterate Test', function() {
         let expectedTransliteration = ['\n\r\n\n\r\r""हामी', '\n\r\n\n\r\r""हमी', '\n\r\n\n\r\r""हामि', '\n\r\n\n\r\r""हमि', '\n\r\n\n\r\r""ह्मी'];
 
         const result = await googleTransliterate(request, sourceText, inputLanguage, maxResult);
-        expect(result).to.deep.equal(expectedTransliteration);
+
+        const mapFirstKeyToNewArray = result.map(r => r[0]);
+        expect(mapFirstKeyToNewArray).to.deep.equal(expectedTransliteration);
     });
 
     it('Nepali: Given "hami" with multiple special characters before and after is entered, it should return array of transliterated nepali script with those characters intact.', async () => {
@@ -276,7 +320,9 @@ describe('Transliterate Test', function() {
         ];
 
         const result = await googleTransliterate(request, sourceText, inputLanguage, maxResult);
-        expect(result).to.deep.equal(expectedTransliteration);
+
+        const mapFirstKeyToNewArray = result.map(r => r[0]);
+        expect(mapFirstKeyToNewArray).to.deep.equal(expectedTransliteration);
     });
 
     it('Oriya: Given "india" is entered, it should return array of transliterated Oriya script.', async () => {
@@ -295,7 +341,9 @@ describe('Transliterate Test', function() {
         ];
 
         const result = await googleTransliterate(request, sourceText, inputLanguage, maxResult);
-        expect(result).to.deep.equal(expectedTransliteration);
+
+        const mapFirstKeyToNewArray = result.map(r => r[0]);
+        expect(mapFirstKeyToNewArray).to.deep.equal(expectedTransliteration);
     });
 
     it('Persian: Given "farsi" is entered, it should return array of transliterated Persian script.', async () => {
@@ -314,7 +362,9 @@ describe('Transliterate Test', function() {
         ];
 
         const result = await googleTransliterate(request, sourceText, inputLanguage, maxResult);
-        expect(result).to.deep.equal(expectedTransliteration);
+
+        const mapFirstKeyToNewArray = result.map(r => r[0]);
+        expect(mapFirstKeyToNewArray).to.deep.equal(expectedTransliteration);
     });
 
     it('Punjabi: Given "punjab" is entered, it should return array of transliterated Punjabi script.', async () => {
@@ -333,7 +383,9 @@ describe('Transliterate Test', function() {
         ];
 
         const result = await googleTransliterate(request, sourceText, inputLanguage, maxResult);
-        expect(result).to.deep.equal(expectedTransliteration);
+
+        const mapFirstKeyToNewArray = result.map(r => r[0]);
+        expect(mapFirstKeyToNewArray).to.deep.equal(expectedTransliteration);
     });
 
     it('Russian: Given "valdamir" is entered, it should return array of transliterated Russian script.', async () => {
@@ -352,7 +404,9 @@ describe('Transliterate Test', function() {
         ];
 
         const result = await googleTransliterate(request, sourceText, inputLanguage, maxResult);
-        expect(result).to.deep.equal(expectedTransliteration);
+
+        const mapFirstKeyToNewArray = result.map(r => r[0]);
+        expect(mapFirstKeyToNewArray).to.deep.equal(expectedTransliteration);
     });
 
     it('Sanskrit: Given "sanskrit" is entered, it should return array of transliterated Sanskrit script.', async () => {
@@ -371,7 +425,9 @@ describe('Transliterate Test', function() {
         ];
 
         const result = await googleTransliterate(request, sourceText, inputLanguage, maxResult);
-        expect(result).to.deep.equal(expectedTransliteration);
+
+        const mapFirstKeyToNewArray = result.map(r => r[0]);
+        expect(mapFirstKeyToNewArray).to.deep.equal(expectedTransliteration);
     });
 
     it('Serbian: Given "serbia" is entered, it should return array of transliterated Serbian script.', async () => {
@@ -387,7 +443,9 @@ describe('Transliterate Test', function() {
         ];
 
         const result = await googleTransliterate(request, sourceText, inputLanguage, maxResult);
-        expect(result).to.deep.equal(expectedTransliteration);
+
+        const mapFirstKeyToNewArray = result.map(r => r[0]);
+        expect(mapFirstKeyToNewArray).to.deep.equal(expectedTransliteration);
     });
 
     it('Sinhalese: Given "srilanka" is entered, it should return array of transliterated Sinhalese script.', async () => {
@@ -406,7 +464,9 @@ describe('Transliterate Test', function() {
         ];
 
         const result = await googleTransliterate(request, sourceText, inputLanguage, maxResult);
-        expect(result).to.deep.equal(expectedTransliteration);
+
+        const mapFirstKeyToNewArray = result.map(r => r[0]);
+        expect(mapFirstKeyToNewArray).to.deep.equal(expectedTransliteration);
     });
 
     it('Tamil: Given "tamil" is entered, it should return array of transliterated tamil script.', async () => {
@@ -419,7 +479,9 @@ describe('Transliterate Test', function() {
         let expectedTransliteration = ['தமிழ்', 'டமில்', 'தமில்', 'தமிழ', 'த'];
 
         const result = await googleTransliterate(request, sourceText, inputLanguage, maxResult);
-        expect(result).to.deep.equal(expectedTransliteration);
+
+        const mapFirstKeyToNewArray = result.map(r => r[0]);
+        expect(mapFirstKeyToNewArray).to.deep.equal(expectedTransliteration);
     });
 
     /**
@@ -441,7 +503,9 @@ describe('Transliterate Test', function() {
         ];
 
         const result = await googleTransliterate(request, sourceText, inputLanguage, maxResult);
-        expect(result).to.deep.equal(expectedTransliteration);
+
+        const mapFirstKeyToNewArray = result.map(r => r[0]);
+        expect(mapFirstKeyToNewArray).to.deep.equal(expectedTransliteration);
     });
 
     it('Thai: Given "thailand" is entered, it should return array of transliterated telugu script.', async () => {
@@ -460,7 +524,9 @@ describe('Transliterate Test', function() {
         ];
 
         const result = await googleTransliterate(request, sourceText, inputLanguage, maxResult);
-        expect(result).to.deep.equal(expectedTransliteration);
+
+        const mapFirstKeyToNewArray = result.map(r => r[0]);
+        expect(mapFirstKeyToNewArray).to.deep.equal(expectedTransliteration);
     });
 
     it('Tigrinya: Given "eritrea" is entered, it should return array of transliterated tigrinya script.', async () => {
@@ -479,7 +545,9 @@ describe('Transliterate Test', function() {
         ];
 
         const result = await googleTransliterate(request, sourceText, inputLanguage, maxResult);
-        expect(result).to.deep.equal(expectedTransliteration);
+
+        const mapFirstKeyToNewArray = result.map(r => r[0]);
+        expect(mapFirstKeyToNewArray).to.deep.equal(expectedTransliteration);
     });
 
     it('Urdu: Given "pakistan" is entered, it should return array of transliterated Urdu script.', async () => {
@@ -498,7 +566,9 @@ describe('Transliterate Test', function() {
         ];
 
         const result = await googleTransliterate(request, sourceText, inputLanguage, maxResult);
-        expect(result).to.deep.equal(expectedTransliteration);
+
+        const mapFirstKeyToNewArray = result.map(r => r[0]);
+        expect(mapFirstKeyToNewArray).to.deep.equal(expectedTransliteration);
     });
 });
 
