@@ -62,9 +62,9 @@ describe('Transliterate Test', function() {
         expect(result).to.deep.equal(expectedTransliteration);
     });
 
-    it('Chinese (Hong Kong): Given "hong kong" is entered, it should return array of transliterated chinese (hong kong) script.', async () => {
+    it('Chinese (Hong Kong): Given "hongkong" is entered, it should return array of transliterated chinese (hongkong) script.', async () => {
         //Given
-        let sourceText = 'hong kong';
+        let sourceText = 'hongkong';
         let inputLanguage = 'yue-hant-t-i0-und';
         let maxResult = 5;
 
@@ -255,6 +255,25 @@ describe('Transliterate Test', function() {
 
         //Expected
         let expectedTransliteration = ['\n\r\n\n\r\r""हामी', '\n\r\n\n\r\r""हमी', '\n\r\n\n\r\r""हामि', '\n\r\n\n\r\r""हमि', '\n\r\n\n\r\r""ह्मी'];
+
+        const result = await googleTransliterate(request, sourceText, inputLanguage, maxResult);
+        expect(result).to.deep.equal(expectedTransliteration);
+    });
+
+    it('Nepali: Given "hami" with multiple special characters before and after is entered, it should return array of transliterated nepali script with those characters intact.', async () => {
+        //Given
+        let sourceText = '\n\r^\n\n\r\r""hami"\n\r^\n\n\r\r"';
+        let inputLanguage = 'ne-t-i0-und';
+        let maxResult = 5;
+
+        //Expected
+        let expectedTransliteration = [
+            '\n\r^\n\n\r\r""हामी"\n\r^\n\n\r\r"',
+            '\n\r^\n\n\r\r""हमी"\n\r^\n\n\r\r"',
+            '\n\r^\n\n\r\r""हामि"\n\r^\n\n\r\r"',
+            '\n\r^\n\n\r\r""हमि"\n\r^\n\n\r\r"',
+            '\n\r^\n\n\r\r""ह्मी"\n\r^\n\n\r\r"'
+        ];
 
         const result = await googleTransliterate(request, sourceText, inputLanguage, maxResult);
         expect(result).to.deep.equal(expectedTransliteration);

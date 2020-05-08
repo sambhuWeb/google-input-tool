@@ -10,17 +10,15 @@
  */
 module.exports = function(request, sourceText, inputLanguageCode, maxResult) {
     return new Promise(function(resolve, reject) {
-        let hasSpecialCharacterInBeginning = false;
-        let specialCharactersInBeginning = null;
+        /*
+         * Match all alphanumeric with latin characters
+         */
+        const alphaNumText = sourceText.match(/[A-Za-z0-9\u00C0-\u024F\u1E00-\u1EFF]+/)[0];
+        const sourceTextParts = sourceText.split(alphaNumText);
+        const firstPartBeforeText = sourceTextParts[0];
+        const lastPartAfterText = sourceTextParts[1];
 
-        if(/^[\r|\n|"]/.exec(sourceText)) {
-            hasSpecialCharacterInBeginning = true;
-            specialCharactersInBeginning = sourceText.match(/^[\r\n"]+/)[0];
-
-            sourceText = sourceText.replace( /^[\r\n"]+/, "" );
-        }
-
-        let encodedUrl = encodeURI('https://inputtools.google.com/request?text=' + sourceText + '&itc=' + inputLanguageCode + '&num=' + maxResult + '&cp=0&cs=1&ie=utf-8&oe=utf-8&app=demopage');
+        let encodedUrl = encodeURI('https://inputtools.google.com/request?text=' + alphaNumText + '&itc=' + inputLanguageCode + '&num=' + maxResult + '&cp=0&cs=1&ie=utf-8&oe=utf-8&app=demopage');
 
         // Do the usual XHR stuff
         request.open('GET', encodedUrl);
@@ -51,14 +49,14 @@ module.exports = function(request, sourceText, inputLanguageCode, maxResult) {
 
                     const responseList = responseJson[1][0][1];
 
-                    if (hasSpecialCharacterInBeginning && specialCharactersInBeginning !== null) {
+                    // if (hasSpecialCharacterInBeginning && specialCharactersInBeginning !== null) {
                         /**
-                         * return the response after putting back the stripped return carriages
+                         * return the response after putting back the first and last part of the text
                          */
-                        resolve(responseList.map(response => specialCharactersInBeginning + response));
-                    } else {
-                        resolve(responseList);
-                    }
+                        resolve(responseList.map(response => firstPartBeforeText + response + lastPartAfterText));
+                    // } else {
+                    //     resolve(responseList);
+                    // }
                 } else {
 
                     /**
