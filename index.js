@@ -13,12 +13,26 @@ module.exports = function(request, sourceText, inputLanguageCode, maxResult) {
         /*
          * Match all alphanumeric with latin characters
          */
-        const alphaNumText = sourceText.match(/[A-Za-z0-9\u00C0-\u024F\u1E00-\u1EFF]+/)[0];
+        const alphanumericWithLatin = sourceText.match(/[A-Za-z0-9\u00C0-\u024F\u1E00-\u1EFF]+/);
+
+        if (alphanumericWithLatin === null) {
+            return;
+        }
+
+        const alphaNumText = alphanumericWithLatin[0];
         const sourceTextParts = sourceText.split(alphaNumText);
         const firstPartBeforeText = sourceTextParts[0];
         const lastPartAfterText = sourceTextParts[1];
 
-        let encodedUrl = encodeURI('https://inputtools.google.com/request?text=' + alphaNumText + '&itc=' + inputLanguageCode + '&num=' + maxResult + '&cp=0&cs=1&ie=utf-8&oe=utf-8&app=demopage');
+        let encodedUrl = encodeURI(
+            'https://inputtools.google.com/request?text='
+            + alphaNumText
+            + '&itc='
+            + inputLanguageCode
+            + '&num='
+            + maxResult
+            + '&cp=0&cs=1&ie=utf-8&oe=utf-8&app=demopage'
+        );
 
         // Do the usual XHR stuff
         request.open('GET', encodedUrl);
@@ -29,7 +43,9 @@ module.exports = function(request, sourceText, inputLanguageCode, maxResult) {
             // console.log('request readyState', request.readyState);
 
             /**
-             * The thing about promise resolution is that once rejected or resolved, it can not be rejected or resovled again
+             * The thing about promise resolution is that once rejected or resolved,
+             * it cannot be rejected or resolved again
+             *
              * The first time onreadystatechange gets called, the status would be 1, not 4 ... so you reject
              * you should only reject if readyState is 4 (DONE) AND status != 200
              */
@@ -56,7 +72,7 @@ module.exports = function(request, sourceText, inputLanguageCode, maxResult) {
                         return [
                             firstPartBeforeText + response + lastPartAfterText,
                             response
-                        ]
+                        ];
                     }));
                 } else {
 
@@ -69,7 +85,7 @@ module.exports = function(request, sourceText, inputLanguageCode, maxResult) {
         };
 
         request.onerror = function() {
-            reject(Error("Network Error"));
+            reject(Error('Network Error'));
         };
 
         request.send();
